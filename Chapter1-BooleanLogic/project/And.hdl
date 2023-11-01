@@ -1,0 +1,13 @@
+/**
+ * And gate:
+ * out = (((a == 1) && (b == 1))), 1, 0) 
+ */
+
+CHIP And {
+  IN a, b;
+  OUT out;
+  PARTS:
+  Nand(a=a,b=b,out=o1);
+  Nand(a=a,b=b,out=o2);
+  Nand(a=o1,b=o2,out=out);
+}

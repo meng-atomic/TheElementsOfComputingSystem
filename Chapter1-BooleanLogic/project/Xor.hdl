@@ -1,0 +1,13 @@
+/**
+ * Exclusive-or gate:
+ * out = (((a == 0) & (b = 1)) | ((a == 1) & (b = 0)), 1, 0)
+ */
+CHIP Xor {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+    Or(a=a,b=b,out=o1);
+    Nand(a=a,b=b,out=o2);
+    And(a=o1,b=o2,out=out);
+}

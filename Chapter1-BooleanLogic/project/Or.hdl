@@ -9,5 +9,5 @@ CHIP Or {
     PARTS:
     Not(in=a,out=na);
     Not(in=b,out=nb);
-    Nand(a=na,b=nb,out=out)
+    Nand(a=na,b=nb,out=out);
 }
