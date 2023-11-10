@@ -39,8 +39,10 @@ CHIP CPU {
 
     Mux16(a=aout,b=inM,sel=instruction[12],out=oam);
 
-    DRegister(in=aluo,load=instruction[4],out=dout);
-    And(a=instruction[15],b=instruction[3],out=writeM);
+    And(a=instruction[4],b=instruction[15],out=dload);   // only update DRegister in C-instruction
+    DRegister(in=aluo,load=dload,out=dout);
+
+    And(a=instruction[15],b=instruction[3],out=writeM);  // only write to memory in C-instruction
 
     ALU(x=dout,y=oam,zx=instruction[11],nx=instruction[10],zy=instruction[9],ny=instruction[8],f=instruction[7],no=instruction[6],out=aluo,out=outM,zr=zr,ng=ng);
 
@@ -55,6 +57,7 @@ CHIP CPU {
     Mux(a=oab,b=ocd,sel=instruction[1],out=oabcd);
     Mux(a=oef,b=ogh,sel=instruction[1],out=oefgh);
     Mux(a=oabcd,b=oefgh,sel=instruction[2],out=ojmp);
-    Not(in=ojmp,out=oinc);
-    PC(in=pcin,load=ojmp,inc=oinc,reset=reset,out[0..14]=pc);
+    And(a=ojmp,b=instruction[15],out=oajmp);
+    Not(in=oajmp,out=oinc);
+    PC(in=pcin,load=oajmp,inc=oinc,reset=reset,out[0..14]=pc);
 }

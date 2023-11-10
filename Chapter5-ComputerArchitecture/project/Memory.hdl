@@ -19,5 +19,14 @@ CHIP Memory {
     OUT out[16];
 
     PARTS:
-    //// Replace this comment with your code.
+    // '0b011111111111111' 16383
+    // '0b100000000000000' 16384
+    // '0b101111111111111' 24575
+    // '0b110000000000000' 24576
+    DMux4Way(in=load,sel=address[13..14],a=lram1,b=lram2,c=lscr,d=lkbd);
+    Or(a=lram1,b=lram2,out=lram);
+    RAM16K(in=in,load=lram,address=address[0..13],out=oram);
+    Screen(in=in,load=lscr,address=address[0..12],out=oscr);
+    Keyboard(out=ok);
+    Mux4Way16(a=oram,b=oram,c=oscr,d=ok,sel=address[13..14],out=out);
 }
