@@ -9,7 +9,7 @@
 class VMTranslator {
 public:
   VMTranslator(const std::string& vm_dir);
-  void translate();
+  bool translate();
 
 private:
   void get_all_vm_files(const std::string& dir);
@@ -30,8 +30,8 @@ VMTranslator::VMTranslator(const std::string& vm_dir) {
   } else {
     _dir_name = real_vm_dir;
   }
-  auto asm_path = real_vm_dir + "/" + _dir_name + ".asm";
-  _writer.init(asm_path);
+  auto asm_name = real_vm_dir + "/" + _dir_name;
+  _writer.init(asm_name);
 
   get_all_vm_files(real_vm_dir);
   for (auto& path : _vm_files) {
@@ -39,22 +39,60 @@ VMTranslator::VMTranslator(const std::string& vm_dir) {
   }
 }
 
-void VMTranslator::translate() {
+bool VMTranslator::translate() {
   for (auto& vm_file : _vm_files) {
     Parser parser;
-    parser.init(vm_file);
-    _writer.setFileName(vm_file);
+    if (!parser.init(vm_file)) {
+      return false;
+    }
+    if (!_writer.setFileName(vm_file)) {
+      return false;
+    }
     while (parser.hasMoreCommands()) {
       if (parser.advance()) {
         CMDType cmd_type = parser.commandType();
         if (cmd_type == CMDType::C_PUSH || cmd_type == CMDType::C_POP) {
-          _writer.writePushPop(cmd_type, parser.arg1(), parser.arg2());
+          if (!_writer.writePushPop(cmd_type, parser.arg1(), parser.arg2())) {
+            return false;
+          }
         } else if (cmd_type == CMDType::C_ARITHMETIC) {
-          _writer.writeArithmetic(parser.arg1());
+          if (!_writer.writeArithmetic(parser.arg1())) {
+            return false;
+          }
+        } else if (cmd_type == CMDType::C_LABEL) {
+          if (!_writer.writeLabel(parser.arg1())) {
+            return false;
+          }
+        } else if (cmd_type == CMDType::C_GOTO) {
+          if (!_writer.writeGoto(parser.arg1())) {
+            return false;
+          }
+        } else if (cmd_type == CMDType::C_IF) {
+          if (!_writer.writeIf(parser.arg1())) {
+            return false;
+          }
+        } else if (cmd_type == CMDType::C_CALL) {
+          if (!_writer.writeCall(parser.arg1(), parser.arg2())) {
+            return false;
+          }
+        } else if (cmd_type == CMDType::C_RETURN) {
+          if (!_writer.writeReturn()) {
+            return false;
+          }
+        } else if (cmd_type == CMDType::C_FUNCTION) {
+          if (!_writer.writeFunction(parser.arg1(), parser.arg2())) {
+            return false;
+          }
+        } else {
+          LOG(VMTranslator) << "unknown command: " << std::endl;
+          return false;
         }
+      } else {
+        break;
       }
     }   
   }
+  return true;
 }
 
 void VMTranslator::get_all_vm_files(const std::string& path) {

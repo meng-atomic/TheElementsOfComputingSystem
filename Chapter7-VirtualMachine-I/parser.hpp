@@ -47,6 +47,10 @@ Parser::~Parser() {
 }
 
 bool Parser::init(const std::string& vm_path) {
+  if (vm_path.find_last_of(".vm") == std::string::npos) {
+    LOG(Parser) << "error file format: " << vm_path << std::endl;
+    return false;
+  }
   _vm_path = vm_path;
   return true;
 }
@@ -145,7 +149,7 @@ bool Parser::parse_command() {
       _arg2 = std::atoi(components[2].c_str());
     }
   }
-
+  
   return true;
 }
 

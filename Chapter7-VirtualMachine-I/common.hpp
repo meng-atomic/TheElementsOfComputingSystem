@@ -64,6 +64,12 @@ const static std::string s_cmd_or = "or";
 const static std::string s_cmd_not = "not";
 const static std::string s_cmd_push = "push";
 const static std::string s_cmd_pop = "pop";
+const static std::string s_cmd_label = "label";
+const static std::string s_cmd_goto = "goto";
+const static std::string s_cmd_if_goto = "if-goto";
+const static std::string s_cmd_function = "function";
+const static std::string s_cmd_call = "call";
+const static std::string s_cmd_return = "return";
 
 using CMDMap = std::unordered_map<std::string, CMDType>;
 const static CMDMap k_cmd_map = {
@@ -78,6 +84,12 @@ const static CMDMap k_cmd_map = {
   {s_cmd_not,     CMDType::C_ARITHMETIC},
   {s_cmd_push,    CMDType::C_PUSH},
   {s_cmd_pop,     CMDType::C_POP},
+  {s_cmd_label,   CMDType::C_LABEL},
+  {s_cmd_goto,    CMDType::C_GOTO},
+  {s_cmd_if_goto, CMDType::C_IF},
+  {s_cmd_function,CMDType::C_FUNCTION},
+  {s_cmd_call,    CMDType::C_CALL},
+  {s_cmd_return,  CMDType:: C_RETURN}
 };
 
 const static size_t POINTER_BASE = 3;
@@ -109,3 +121,5 @@ const static SegmentMap k_segment_map = {
   {"this", "THIS"},
   {"that", "THAT"},
 };
+
+const static std::string s_sys_init_function_name = "Sys.init";

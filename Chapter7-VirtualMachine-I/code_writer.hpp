@@ -13,14 +13,21 @@ public:
     close();
   }
 
-  bool init(const std::string& asm_file);
-  void setFileName(const std::string& fileName);
+  bool init(const std::string& asm_name);
+  bool setFileName(const std::string& fileName);
+  bool writeInit();
+  bool writeLabel(const std::string& label);
+  bool writeGoto(const std::string& label);
+  bool writeIf(const std::string& label);
+  bool writeCall(const std::string& name, int numArgs);
+  bool writeReturn();
+  bool writeFunction(const std::string& name, int numLocals);
   bool writeArithmetic(const std::string& command);
   bool writePushPop(CMDType command, const std::string& segment, int index);
   void close();
 
 private:
-  void write(const std::string& instruction);
+  void write(const std::string& instruction, int indent = 4);
   void writeAdd();
   void writeSub();
   void writeNeg();
@@ -31,8 +38,6 @@ private:
   void writeOr();
   void writeNot();
 
-  void writeLabel(const std::string& label_name);
-
   std::string _asm_file_path{""};
   std::string _symbol_prefix{""};
   std::ofstream _asm_ofs;
@@ -42,8 +47,8 @@ private:
   int _label_idx{0};
 };
 
-bool CodeWriter::init(const std::string& asm_file) {
-  _asm_file_path = asm_file;
+bool CodeWriter::init(const std::string& asm_name) {
+  _asm_file_path = asm_name + ".asm";
   if (_asm_ofs.is_open()) {
     return false;
   }
@@ -51,23 +56,183 @@ bool CodeWriter::init(const std::string& asm_file) {
   if (!_asm_ofs.is_open()) {
     return false;
   }
-  return true;
+  return writeInit();
 }
 
-void CodeWriter::setFileName(const std::string& fileName) {
+bool CodeWriter::setFileName(const std::string& fileName) {
   _symbol_prefix = fileName;
   auto pos = _symbol_prefix.find_last_of(".vm");
   if (pos != std::string::npos) {
-    _symbol_prefix = _symbol_prefix.substr(0, pos);
-  }
-  for (auto iter = _symbol_prefix.begin(); iter != _symbol_prefix.end(); ++iter) {
-    if (*iter == '.') {
-      *iter = '_';
-    } else if (*iter == '/') {
-      *iter = '_';
+    _symbol_prefix = _symbol_prefix.substr(0, pos - 2);
+    pos = _symbol_prefix.find_last_of('/');
+    if (pos != std::string::npos) {
+      _symbol_prefix = _symbol_prefix.substr(pos + 1);
     }
+    LOG(CodeWriter) << "current symbol prefix: " << _symbol_prefix << std::endl;
+    return true;
   }
-  LOG(CodeWriter) << "current symbol prefix: " << _symbol_prefix << std::endl;
+  return false;
+}
+
+bool CodeWriter::writeInit() {
+  write("@256");
+  write("D=A");
+  write("@SP");
+  write("M=D");
+
+  writeCall(s_sys_init_function_name, 0);
+  return true;
+}
+
+bool CodeWriter::writeLabel(const std::string& label) {
+  write("(" + _symbol_prefix + "." + label + ")", 0);
+  return true;
+}
+
+bool CodeWriter::writeGoto(const std::string& label) {
+  write("@" + _symbol_prefix + "." + label);
+  write("0;JMP");
+  return true;
+}
+
+bool CodeWriter::writeIf(const std::string& label) {
+  write("@SP");
+  write("M=M-1");
+  write("A=M");
+  write("D=M");
+  write("@" + _symbol_prefix + "." + label);
+  write("D;JNE");
+  return true;
+}
+
+bool CodeWriter::writeCall(const std::string& name, int numArgs) {
+  std::string return_label = "LABEL_RET_" + std::to_string(++_label_idx);
+  write("@" + return_label);
+  write("D=A");
+  write("@SP");
+  write("A=M");
+  write("M=D");
+  write("@SP");
+  write("M=M+1");
+
+  write("@LCL");
+  write("D=M");
+  write("@SP");
+  write("A=M");
+  write("M=D");
+  write("@SP");
+  write("M=M+1");
+
+  write("@ARG");
+  write("D=M");
+  write("@SP");
+  write("A=M");
+  write("M=D");
+  write("@SP");
+  write("M=M+1");
+
+  write("@THIS");
+  write("D=M");
+  write("@SP");
+  write("A=M");
+  write("M=D");
+  write("@SP");
+  write("M=M+1");
+
+  write("@THAT");
+  write("D=M");
+  write("@SP");
+  write("A=M");
+  write("M=D");
+  write("@SP");
+  write("M=M+1");
+
+  write("@SP");
+  write("D=M");
+  write("@5");
+  write("D=D-A");
+  write("@" + std::to_string(numArgs));
+  write("D=D-A");
+  write("@ARG");
+  write("M=D");
+
+  write("@SP");
+  write("D=M");
+  write("@LCL");
+  write("M=D");
+
+  write("@" + name);
+  write("0;JMP");
+
+  write("(" + return_label + ")", 0);
+  return true;
+}
+
+bool CodeWriter::writeReturn() {
+  // save return address to R13
+  write("@LCL");
+  write("D=M");
+  write("@5");
+  write("A=D-A");
+  write("D=M");
+  write("@R13");
+  write("M=D");
+  // reposition return value to ARG[0]
+  writePushPop(CMDType::C_POP, "argument", 0);
+  // restore SP
+  write("@ARG");
+  write("D=M");
+  write("@SP");
+  write("M=D+1");
+  // restore segments
+  write("@LCL");
+  write("A=M-1");
+  write("D=M");
+  write("@THAT");
+  write("M=D");
+
+  write("@LCL");
+  write("D=M");
+  write("@2");
+  write("A=D-A");
+  write("D=M");
+  write("@THIS");
+  write("M=D");
+
+  write("@LCL");
+  write("D=M");
+  write("@3");
+  write("A=D-A");
+  write("D=M");
+  write("@ARG");
+  write("M=D");
+
+  write("@LCL");
+  write("D=M");
+  write("@4");
+  write("A=D-A");
+  write("D=M");
+  write("@LCL");
+  write("M=D");
+  // return
+  write("@R13");
+  write("A=M");
+  write("0;JMP");
+  return true;
+}
+
+bool CodeWriter::writeFunction(const std::string& name, int numLocals) {
+  write("(" + name + ")", 0);
+  for (int i = 0; i < numLocals; ++i) {
+    write("@0");
+    write("D=A");
+    write("@SP");
+    write("A=M");
+    write("M=D");
+    write("@SP");
+    write("M=M+1");
+  }
+  return true;
 }
 
 bool CodeWriter::writeArithmetic(const std::string& command) {
@@ -187,21 +352,22 @@ bool CodeWriter::writePushPop(CMDType command, const std::string& segment, int i
       write("@" + _symbol_prefix + "." + std::to_string(index));
       write("M=D");
     } else if (k_segment_map.count(segment) > 0) {
-      write("@SP");
-      write("M=M-1");
-      
       write("@" + std::to_string(index));
       write("D=A");
       write("@" + k_segment_map.at(segment));
       write("D=D+M");
-      write("@R13");
-      write("M=D");
       write("@SP");
       write("A=M");
+      write("M=D");
+      write("@SP");
+      write("A=M-1");
       write("D=M");
-      write("@R13");
+      write("@SP");
+      write("A=M");
       write("A=M");
       write("M=D");
+      write("@SP");
+      write("M=M-1");
     } else {
       LOG(CodeWriter) << "unknown segment: " << std::endl;
       return false;
@@ -217,8 +383,8 @@ void CodeWriter::close() {
   }
 }
 
-void CodeWriter::write(const std::string& instruction) {
-  _asm_ofs << instruction << std::endl;
+void CodeWriter::write(const std::string& instruction, int indent) {
+  _asm_ofs << std::string(indent, ' ') << instruction << std::endl;
 }
 
 void CodeWriter::writeAdd() {
@@ -282,7 +448,7 @@ void CodeWriter::writeEq() {
   write("@" + false_label_name);
   write("0;JMP");
 
-  write("(" + true_label_name + ")");
+  write("(" + true_label_name + ")", 0);
   write("@SP");
   write("A=M");
   write("M=-1");
@@ -292,14 +458,14 @@ void CodeWriter::writeEq() {
   write("@" + end_label_name);
   write("0;JMP");
 
-  write("(" + false_label_name + ")");
+  write("(" + false_label_name + ")", 0);
   write("@SP");
   write("A=M");
   write("M=0");
   write("@SP");
   write("M=M+1");
 
-  write("(" + end_label_name + ")");
+  write("(" + end_label_name + ")", 0);
 }
 
 void CodeWriter::writeGt() {
@@ -323,7 +489,7 @@ void CodeWriter::writeGt() {
   write("@" + false_label_name);
   write("0;JMP");
 
-  write("(" + true_label_name + ")");
+  write("(" + true_label_name + ")", 0);
   write("@SP");
   write("A=M");
   write("M=-1");
@@ -333,14 +499,14 @@ void CodeWriter::writeGt() {
   write("@" + end_label_name);
   write("0;JMP");
 
-  write("(" + false_label_name + ")");
+  write("(" + false_label_name + ")", 0);
   write("@SP");
   write("A=M");
   write("M=0");
   write("@SP");
   write("M=M+1");
 
-  write("(" + end_label_name + ")");
+  write("(" + end_label_name + ")", 0);
 }
 
 void CodeWriter::writeLt() {
@@ -364,7 +530,7 @@ void CodeWriter::writeLt() {
   write("@" + false_label_name);
   write("0;JMP");
 
-  write("(" + true_label_name + ")");
+  write("(" + true_label_name + ")", 0);
   write("@SP");
   write("A=M");
   write("M=-1");
@@ -374,14 +540,14 @@ void CodeWriter::writeLt() {
   write("@" + end_label_name);
   write("0;JMP");
 
-  write("(" + false_label_name + ")");
+  write("(" + false_label_name + ")", 0);
   write("@SP");
   write("A=M");
   write("M=0");
   write("@SP");
   write("M=M+1");
 
-  write("(" + end_label_name + ")");
+  write("(" + end_label_name + ")", 0);
 }
 
 void CodeWriter::writeAnd() {
@@ -423,15 +589,4 @@ void CodeWriter::writeNot() {
   write("@SP");
   write("A=M-1");
   write("M=D");
-}
-
-void CodeWriter::writeLabel(const std::string& label_name) {
-  write("(" + label_name + ")");
-  write("@65535");
-  write("D=A");
-  write("@SP");
-  write("A=M");
-  write("M=D");
-  write("@SP");
-  write("M=M+1");
 }

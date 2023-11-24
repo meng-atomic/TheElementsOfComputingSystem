@@ -1,35 +1,66 @@
-    @10
+    @1
     D=A
-    @SP
-    A=M
-    M=D
-    @SP
-    M=M+1
-    @0
-    D=A
-    @LCL
-    D=D+M
-    @SP
-    A=M
-    M=D
-    @SP
-    A=M-1
+    @ARG
+    A=D+M
     D=M
     @SP
     A=M
-    A=M
     M=D
     @SP
+    M=M+1
+    @SP
     M=M-1
-    @21
+    A=M
+    D=M
+    @R4
+    M=D
+    @0
     D=A
     @SP
     A=M
     M=D
     @SP
     M=M+1
-    @22
+    @SP
+    M=M-1
+    @0
     D=A
+    @THAT
+    D=D+M
+    @R13
+    M=D
+    @SP
+    A=M
+    D=M
+    @R13
+    A=M
+    M=D
+    @1
+    D=A
+    @SP
+    A=M
+    M=D
+    @SP
+    M=M+1
+    @SP
+    M=M-1
+    @1
+    D=A
+    @THAT
+    D=D+M
+    @R13
+    M=D
+    @SP
+    A=M
+    D=M
+    @R13
+    A=M
+    M=D
+    @0
+    D=A
+    @ARG
+    A=D+M
+    D=M
     @SP
     A=M
     M=D
@@ -37,156 +68,6 @@
     M=M+1
     @2
     D=A
-    @ARG
-    D=D+M
-    @SP
-    A=M
-    M=D
-    @SP
-    A=M-1
-    D=M
-    @SP
-    A=M
-    A=M
-    M=D
-    @SP
-    M=M-1
-    @1
-    D=A
-    @ARG
-    D=D+M
-    @SP
-    A=M
-    M=D
-    @SP
-    A=M-1
-    D=M
-    @SP
-    A=M
-    A=M
-    M=D
-    @SP
-    M=M-1
-    @36
-    D=A
-    @SP
-    A=M
-    M=D
-    @SP
-    M=M+1
-    @6
-    D=A
-    @THIS
-    D=D+M
-    @SP
-    A=M
-    M=D
-    @SP
-    A=M-1
-    D=M
-    @SP
-    A=M
-    A=M
-    M=D
-    @SP
-    M=M-1
-    @42
-    D=A
-    @SP
-    A=M
-    M=D
-    @SP
-    M=M+1
-    @45
-    D=A
-    @SP
-    A=M
-    M=D
-    @SP
-    M=M+1
-    @5
-    D=A
-    @THAT
-    D=D+M
-    @SP
-    A=M
-    M=D
-    @SP
-    A=M-1
-    D=M
-    @SP
-    A=M
-    A=M
-    M=D
-    @SP
-    M=M-1
-    @2
-    D=A
-    @THAT
-    D=D+M
-    @SP
-    A=M
-    M=D
-    @SP
-    A=M-1
-    D=M
-    @SP
-    A=M
-    A=M
-    M=D
-    @SP
-    M=M-1
-    @510
-    D=A
-    @SP
-    A=M
-    M=D
-    @SP
-    M=M+1
-    @SP
-    M=M-1
-    A=M
-    D=M
-    @R11
-    M=D
-    @0
-    D=A
-    @LCL
-    A=D+M
-    D=M
-    @SP
-    A=M
-    M=D
-    @SP
-    M=M+1
-    @5
-    D=A
-    @THAT
-    A=D+M
-    D=M
-    @SP
-    A=M
-    M=D
-    @SP
-    M=M+1
-    @SP
-    M=M-1
-    A=M
-    D=M
-    @SP
-    M=M-1
-    A=M
-    D=D+M
-    @SP
-    A=M
-    M=D
-    @SP
-    M=M+1
-    @1
-    D=A
-    @ARG
-    A=D+M
-    D=M
     @SP
     A=M
     M=D
@@ -205,9 +86,24 @@
     M=D
     @SP
     M=M+1
-    @6
+    @SP
+    M=M-1
+    @0
     D=A
-    @THIS
+    @ARG
+    D=D+M
+    @R13
+    M=D
+    @SP
+    A=M
+    D=M
+    @R13
+    A=M
+    M=D
+    (__project_ProgramFlow_FibonacciSeries_FibonacciSeries_v.LOOP)
+    @0
+    D=A
+    @ARG
     A=D+M
     D=M
     @SP
@@ -215,9 +111,28 @@
     M=D
     @SP
     M=M+1
-    @6
+    @SP
+    M=M-1
+    A=M
+    D=M
+    @__project_ProgramFlow_FibonacciSeries_FibonacciSeries_v.COMPUTE_ELEMENT
+    D;JNE
+    @__project_ProgramFlow_FibonacciSeries_FibonacciSeries_v.END
+    0;JMP
+    (__project_ProgramFlow_FibonacciSeries_FibonacciSeries_v.COMPUTE_ELEMENT)
+    @0
     D=A
-    @THIS
+    @THAT
+    A=D+M
+    D=M
+    @SP
+    A=M
+    M=D
+    @SP
+    M=M+1
+    @1
+    D=A
+    @THAT
     A=D+M
     D=M
     @SP
@@ -233,6 +148,70 @@
     M=M-1
     A=M
     D=D+M
+    @SP
+    A=M
+    M=D
+    @SP
+    M=M+1
+    @SP
+    M=M-1
+    @2
+    D=A
+    @THAT
+    D=D+M
+    @R13
+    M=D
+    @SP
+    A=M
+    D=M
+    @R13
+    A=M
+    M=D
+    @R4
+    D=M
+    @SP
+    A=M
+    M=D
+    @SP
+    M=M+1
+    @1
+    D=A
+    @SP
+    A=M
+    M=D
+    @SP
+    M=M+1
+    @SP
+    M=M-1
+    A=M
+    D=M
+    @SP
+    M=M-1
+    A=M
+    D=D+M
+    @SP
+    A=M
+    M=D
+    @SP
+    M=M+1
+    @SP
+    M=M-1
+    A=M
+    D=M
+    @R4
+    M=D
+    @0
+    D=A
+    @ARG
+    A=D+M
+    D=M
+    @SP
+    A=M
+    M=D
+    @SP
+    M=M+1
+    @1
+    D=A
     @SP
     A=M
     M=D
@@ -251,23 +230,20 @@
     M=D
     @SP
     M=M+1
-    @R11
-    D=M
-    @SP
-    A=M
-    M=D
-    @SP
-    M=M+1
     @SP
     M=M-1
-    A=M
-    D=M
-    @SP
-    M=M-1
-    A=M
+    @0
+    D=A
+    @ARG
     D=D+M
-    @SP
-    A=M
+    @R13
     M=D
     @SP
-    M=M+1
+    A=M
+    D=M
+    @R13
+    A=M
+    M=D
+    @__project_ProgramFlow_FibonacciSeries_FibonacciSeries_v.LOOP
+    0;JMP
+    (__project_ProgramFlow_FibonacciSeries_FibonacciSeries_v.END)
