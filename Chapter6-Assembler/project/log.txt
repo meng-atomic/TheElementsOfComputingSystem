@@ -1,0 +1,174 @@
+./parser.hpp[99][Parser] 27,   @8192 // total memory 8K
+./parser.hpp[122][Parser] preprocessed command: [1]: @8192
+./parser.hpp[99][Parser] 6,   D=A
+./parser.hpp[122][Parser] preprocessed command: [2]: D=A
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: A, 2
+./parser.hpp[99][Parser] 7,   @max
+./parser.hpp[122][Parser] preprocessed command: [3]: @max
+./parser.hpp[99][Parser] 6,   M=D
+./parser.hpp[122][Parser] preprocessed command: [4]: M=D
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: D, 2
+./parser.hpp[99][Parser] 1, 
+./parser.hpp[122][Parser] preprocessed command: [5]: 
+./parser.hpp[183][Parser] parse error at line[5]: no dest nor jump
+./code.hpp[81][Code] unknown comp mnemonic: , 0
+./parser.hpp[99][Parser] 9,   @16384
+./parser.hpp[122][Parser] preprocessed command: [6]: @16384
+./parser.hpp[99][Parser] 6,   D=A
+./parser.hpp[122][Parser] preprocessed command: [7]: D=A
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: A, 2
+./parser.hpp[99][Parser] 8,   @base
+./parser.hpp[122][Parser] preprocessed command: [8]: @base
+./parser.hpp[99][Parser] 6,   M=D
+./parser.hpp[122][Parser] preprocessed command: [9]: M=D
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: D, 2
+./parser.hpp[99][Parser] 1, 
+./parser.hpp[122][Parser] preprocessed command: [10]: 
+./parser.hpp[183][Parser] parse error at line[10]: no dest nor jump
+./code.hpp[81][Code] unknown comp mnemonic: , 0
+./parser.hpp[99][Parser] 7, (LOOP)
+./parser.hpp[122][Parser] preprocessed command: [11]: (LOOP)
+assembler.cpp[46][Assembler] no code generate for L command
+./parser.hpp[99][Parser] 7,   @KBD
+./parser.hpp[122][Parser] preprocessed command: [12]: @KBD
+./parser.hpp[99][Parser] 6,   D=M
+./parser.hpp[122][Parser] preprocessed command: [13]: D=M
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: M, 2
+./parser.hpp[99][Parser] 78,   @WHITE // if D=0,that means no key pressed, so clears the screen(all white)
+./parser.hpp[122][Parser] preprocessed command: [14]: @WHITE
+./parser.hpp[99][Parser] 8,   D;JEQ
+./parser.hpp[122][Parser] preprocessed command: [15]: D;JEQ
+./code.hpp[99][Code] unknown jump mnemonic: JEQ./parser.hpp[99][Parser] 9,   @BLACK
+./parser.hpp[122][Parser] preprocessed command: [16]: @BLACK
+./parser.hpp[99][Parser] 8,   D;JGT
+./parser.hpp[122][Parser] preprocessed command: [17]: D;JGT
+./code.hpp[99][Code] unknown jump mnemonic: JGT./parser.hpp[99][Parser] 1, 
+./parser.hpp[122][Parser] preprocessed command: [18]: 
+./parser.hpp[183][Parser] parse error at line[18]: no dest nor jump
+./code.hpp[81][Code] unknown comp mnemonic: , 0
+./parser.hpp[99][Parser] 8, (WHITE)
+./parser.hpp[122][Parser] preprocessed command: [19]: (WHITE)
+assembler.cpp[46][Assembler] no code generate for L command
+./parser.hpp[99][Parser] 5,   @i
+./parser.hpp[122][Parser] preprocessed command: [20]: @i
+./parser.hpp[99][Parser] 21,   M=0 // Reset index
+./parser.hpp[122][Parser] preprocessed command: [21]: M=0
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./parser.hpp[99][Parser] 12, (WHITELOOP)
+./parser.hpp[122][Parser] preprocessed command: [22]: (WHITELOOP)
+assembler.cpp[46][Assembler] no code generate for L command
+./parser.hpp[99][Parser] 5,   @i
+./parser.hpp[122][Parser] preprocessed command: [23]: @i
+./parser.hpp[99][Parser] 6,   D=M
+./parser.hpp[122][Parser] preprocessed command: [24]: D=M
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: M, 2
+./parser.hpp[99][Parser] 7,   @max
+./parser.hpp[122][Parser] preprocessed command: [25]: @max
+./parser.hpp[99][Parser] 8,   D=D-M
+./parser.hpp[122][Parser] preprocessed command: [26]: D=D-M
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: D-M, 4
+./parser.hpp[99][Parser] 8,   @LOOP
+./parser.hpp[122][Parser] preprocessed command: [27]: @LOOP
+./parser.hpp[99][Parser] 8,   D;JGE
+./parser.hpp[122][Parser] preprocessed command: [28]: D;JGE
+./code.hpp[99][Code] unknown jump mnemonic: JGE./parser.hpp[99][Parser] 17,   // get address
+./parser.hpp[99][Parser] 5,   @i
+./parser.hpp[122][Parser] preprocessed command: [30]: @i
+./parser.hpp[99][Parser] 6,   D=M
+./parser.hpp[122][Parser] preprocessed command: [31]: D=M
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: M, 2
+./parser.hpp[99][Parser] 8,   @base
+./parser.hpp[122][Parser] preprocessed command: [32]: @base
+./parser.hpp[99][Parser] 43,   D=D+M // D hold pointer to screen memory
+./parser.hpp[122][Parser] preprocessed command: [33]: D=D+M
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./parser.hpp[99][Parser] 6,   A=D
+./parser.hpp[122][Parser] preprocessed command: [34]: A=D
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: D, 2
+./parser.hpp[99][Parser] 6,   M=0
+./parser.hpp[122][Parser] preprocessed command: [35]: M=0
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: 0, 2
+./parser.hpp[99][Parser] 5,   @i
+./parser.hpp[122][Parser] preprocessed command: [36]: @i
+./parser.hpp[99][Parser] 8,   M=M+1
+./parser.hpp[122][Parser] preprocessed command: [37]: M=M+1
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: M+1, 4
+./parser.hpp[99][Parser] 13,   @WHITELOOP
+./parser.hpp[122][Parser] preprocessed command: [38]: @WHITELOOP
+./parser.hpp[99][Parser] 8,   0;JMP
+./parser.hpp[122][Parser] preprocessed command: [39]: 0;JMP
+./code.hpp[99][Code] unknown jump mnemonic: JMP./parser.hpp[99][Parser] 1, 
+./parser.hpp[122][Parser] preprocessed command: [40]: 
+./parser.hpp[183][Parser] parse error at line[40]: no dest nor jump
+./code.hpp[81][Code] unknown comp mnemonic: , 0
+./parser.hpp[99][Parser] 8, (BLACK)
+./parser.hpp[122][Parser] preprocessed command: [41]: (BLACK)
+assembler.cpp[46][Assembler] no code generate for L command
+./parser.hpp[99][Parser] 5,   @i
+./parser.hpp[122][Parser] preprocessed command: [42]: @i
+./parser.hpp[99][Parser] 21,   M=0 // Reset index
+./parser.hpp[122][Parser] preprocessed command: [43]: M=0
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./parser.hpp[99][Parser] 12, (BLACKLOOP)
+./parser.hpp[122][Parser] preprocessed command: [44]: (BLACKLOOP)
+assembler.cpp[46][Assembler] no code generate for L command
+./parser.hpp[99][Parser] 5,   @i
+./parser.hpp[122][Parser] preprocessed command: [45]: @i
+./parser.hpp[99][Parser] 6,   D=M
+./parser.hpp[122][Parser] preprocessed command: [46]: D=M
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: M, 2
+./parser.hpp[99][Parser] 7,   @max
+./parser.hpp[122][Parser] preprocessed command: [47]: @max
+./parser.hpp[99][Parser] 8,   D=D-M
+./parser.hpp[122][Parser] preprocessed command: [48]: D=D-M
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: D-M, 4
+./parser.hpp[99][Parser] 8,   @LOOP
+./parser.hpp[122][Parser] preprocessed command: [49]: @LOOP
+./parser.hpp[99][Parser] 8,   D;JGE
+./parser.hpp[122][Parser] preprocessed command: [50]: D;JGE
+./code.hpp[99][Code] unknown jump mnemonic: JGE./parser.hpp[99][Parser] 17,   // get address
+./parser.hpp[99][Parser] 5,   @i
+./parser.hpp[122][Parser] preprocessed command: [52]: @i
+./parser.hpp[99][Parser] 6,   D=M
+./parser.hpp[122][Parser] preprocessed command: [53]: D=M
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: M, 2
+./parser.hpp[99][Parser] 8,   @base
+./parser.hpp[122][Parser] preprocessed command: [54]: @base
+./parser.hpp[99][Parser] 43,   D=D+M // D hold pointer to screen memory
+./parser.hpp[122][Parser] preprocessed command: [55]: D=D+M
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./parser.hpp[99][Parser] 6,   A=D
+./parser.hpp[122][Parser] preprocessed command: [56]: A=D
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: D, 2
+./parser.hpp[99][Parser] 7,   M=-1
+./parser.hpp[122][Parser] preprocessed command: [57]: M=-1
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: -1, 3
+./parser.hpp[99][Parser] 5,   @i
+./parser.hpp[122][Parser] preprocessed command: [58]: @i
+./parser.hpp[99][Parser] 8,   M=M+1
+./parser.hpp[122][Parser] preprocessed command: [59]: M=M+1
+./parser.hpp[203][Parser] 1, 18446744073709551615
+./code.hpp[81][Code] unknown comp mnemonic: M+1, 4
+./parser.hpp[99][Parser] 13,   @BLACKLOOP
+./parser.hpp[122][Parser] preprocessed command: [60]: @BLACKLOOP
+./parser.hpp[99][Parser] 8,   0;JMP
+./parser.hpp[122][Parser] preprocessed command: [61]: 0;JMP
+./code.hpp[99][Code] unknown jump mnemonic: JMP./parser.hpp[99][Parser] 5, (END)
+./parser.hpp[122][Parser] preprocessed command: [62]: (END)
+assembler.cpp[46][Assembler] no code generate for L command
