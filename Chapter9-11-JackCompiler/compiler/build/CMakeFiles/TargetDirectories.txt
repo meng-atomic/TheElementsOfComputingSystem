@@ -1,0 +1,3 @@
+/Users/zhangmeng34/workspace/atomic/TheElementsOfComputingSystem/Chapter9-11-JackCompiler/compiler/build/CMakeFiles/rebuild_cache.dir
+/Users/zhangmeng34/workspace/atomic/TheElementsOfComputingSystem/Chapter9-11-JackCompiler/compiler/build/CMakeFiles/edit_cache.dir
+/Users/zhangmeng34/workspace/atomic/TheElementsOfComputingSystem/Chapter9-11-JackCompiler/compiler/build/CMakeFiles/jack_tokenizer_test.dir

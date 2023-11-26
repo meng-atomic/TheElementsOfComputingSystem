@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/zhangmeng34/workspace/atomic/TheElementsOfComputingSystem/Chapter9-11-JackCompiler/compiler/common.hpp
+unordered_set
+-
+iostream
+-
+
+/Users/zhangmeng34/workspace/atomic/TheElementsOfComputingSystem/Chapter9-11-JackCompiler/compiler/jack_tokenizer.hpp
+fstream
+-
+log.hpp
+/Users/zhangmeng34/workspace/atomic/TheElementsOfComputingSystem/Chapter9-11-JackCompiler/compiler/log.hpp
+common.hpp
+/Users/zhangmeng34/workspace/atomic/TheElementsOfComputingSystem/Chapter9-11-JackCompiler/compiler/common.hpp
+preprocessor.hpp
+/Users/zhangmeng34/workspace/atomic/TheElementsOfComputingSystem/Chapter9-11-JackCompiler/compiler/preprocessor.hpp
+
+/Users/zhangmeng34/workspace/atomic/TheElementsOfComputingSystem/Chapter9-11-JackCompiler/compiler/jack_tokenizer_test.cpp
+jack_tokenizer.hpp
+/Users/zhangmeng34/workspace/atomic/TheElementsOfComputingSystem/Chapter9-11-JackCompiler/compiler/jack_tokenizer.hpp
+sstream
+-
+unistd.h
+-
+
+/Users/zhangmeng34/workspace/atomic/TheElementsOfComputingSystem/Chapter9-11-JackCompiler/compiler/log.hpp
+iostream
+-
+
+/Users/zhangmeng34/workspace/atomic/TheElementsOfComputingSystem/Chapter9-11-JackCompiler/compiler/preprocessor.hpp
+common.hpp
+/Users/zhangmeng34/workspace/atomic/TheElementsOfComputingSystem/Chapter9-11-JackCompiler/compiler/common.hpp
+string
+-
+
