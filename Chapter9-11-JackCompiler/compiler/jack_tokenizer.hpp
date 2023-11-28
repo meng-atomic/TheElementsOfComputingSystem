@@ -7,6 +7,16 @@
 #include "common.hpp"
 #include "preprocessor.hpp"
 
+struct TokenInfo {
+  TokenType type;
+  Keyword keyword;
+  char symbol;
+  std::string identifier;
+  int int_val;
+  std::string str_val;
+  std::string token_str;
+};
+
 class JackTokenizer {
 public:
   JackTokenizer(const std::string& jack_file);
@@ -25,6 +35,18 @@ public:
 
   std::string current_line() const {
     return _current_line;
+  }
+
+  TokenInfo token_info() {
+    TokenInfo info;
+    info.type = tokenType();
+    info.keyword = keyword();
+    info.identifier = identifier();
+    info.symbol = symbol();
+    info.int_val = intVal();
+    info.str_val = stringVal();
+    info.token_str = _token_str;
+    return info;
   }
 
 private:
